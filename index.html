@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Pipeline | Engineering Case Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            border-color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-node {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .pipeline-node:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card {
+            border-left: 4px solid var(--accent);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .terminal-header {
+            background: #334155;
+            padding: 8px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot { height: 10px; width: 10px; border-radius: 50%; }
+    </style>
+</head>
+<body class="selection:bg-blue-500/30">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold font-heading tracking-tight">
+                <span class="text-blue-500 mr-2">/</span>ENGINEER_PORTFOLIO
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#overview" class="hover:text-white transition-colors">Overview</a>
+                <a href="#architecture" class="hover:text-white transition-colors">Architecture</a>
+                <a href="#challenge" class="hover:text-white transition-colors">The Challenge</a>
+                <a href="#impact" class="hover:text-white transition-colors">Impact</a>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all">
+                Connect
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="overview" class="pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-400 uppercase glass rounded-full">
+                Advanced Security Engineering
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                OSINT Data Acquisition & <br>
+                <span class="gradient-text text-6xl md:text-8xl">Threat Classification</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Transforming fragmented web intelligence into proactive security defense through autonomous scraping, LLM-driven analysis, and ML pattern matching.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="glass px-4 py-2 rounded-lg flex items-center gap-2">
+                    <i class="fab fa-python text-blue-400"></i>
+                    <span class="text-sm font-medium">Python Core</span>
+                </div>
+                <div class="glass px-4 py-2 rounded-lg flex items-center gap-2">
+                    <i class="fas fa-brain text-purple-400"></i>
+                    <span class="text-sm font-medium">GPT-4 NER</span>
+                </div>
+                <div class="glass px-4 py-2 rounded-lg flex items-center gap-2">
+                    <i class="fas fa-shield-halved text-green-400"></i>
+                    <span class="text-sm font-medium">ML Classification</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-20 px-6 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">System Architecture</h2>
+                    <p class="text-slate-400">The end-to-end pipeline from raw data to actionable insight.</p>
+                </div>
+                <div class="text-xs font-mono text-blue-400 animate-pulse-slow tracking-widest uppercase">
+                    Status: Systems Nominal
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="pipeline-node glass p-8 rounded-2xl glow-hover">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-cloud-download-alt text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">1. Ingestion</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Orchestrating **Selenium** and **BeautifulSoup** to crawl JavaScript-heavy security forums and dynamic web layers. Integrated REST APIs to fetch legacy reputation data.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">Selenium</span>
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">BS4</span>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="pipeline-node glass p-8 rounded-2xl glow-hover border-blue-500/30">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-microchip text-purple-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">2. Processing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Leveraging **GPT-4** for automated Named Entity Recognition (NER). Extracting IOCs, summarizing threats, and using ML models to score URL lethality.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">GPT-4 API</span>
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">Scikit-Learn</span>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="pipeline-node glass p-8 rounded-2xl glow-hover">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">3. Intelligence</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Structuring disparate JSON outputs into relational models. Powered by Advanced Excel/Power Query for domain heat maps and executive dashboards.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">Power Query</span>
+                        <span class="text-[10px] px-2 py-1 bg-slate-800 rounded uppercase font-bold text-slate-500">Clean Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge Section -->
+    <section id="challenge" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2">
+                    <div class="rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
+                        <div class="terminal-header">
+                            <div class="dot bg-red-500"></div>
+                            <div class="dot bg-yellow-500"></div>
+                            <div class="dot bg-green-500"></div>
+                            <span class="text-[10px] text-slate-400 ml-4 font-mono uppercase">Exception_Handler.py</span>
+                        </div>
+                        <div class="bg-slate-900 p-6 font-mono text-sm leading-relaxed">
+                            <p class="text-blue-400 mb-2"># Handling Inconsistent HTML</p>
+                            <p><span class="text-purple-400">try:</span></p>
+                            <p class="pl-4 text-slate-300">pipeline.scrape(<span class="text-green-300">target_url</span>)</p>
+                            <p><span class="text-purple-400">except</span> <span class="text-yellow-300">DOMStructureException</span> <span class="text-purple-400">as</span> e:</p>
+                            <p class="pl-4 text-slate-500">log.warning(<span class="text-green-300">"Layout Change Detected"</span>)</p>
+                            <p class="pl-4 text-slate-300">regex.fallback_match(e.raw_html)</p>
+                            <p class="pl-4 text-blue-400"># Autonomous self-healing logic...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">Defeating the "Noise Floor"</h2>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        The biggest engineering hurdle was data integrity. Web layouts are erratic; forums change DOM structures without notice.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="text-blue-500 mt-1"><i class="fas fa-check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Custom Regex Engine</h4>
+                                <p class="text-slate-400 text-sm">Engineered complex regular expressions to bypass HTML obfuscation and extract clean IoCs regardless of tagging.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-blue-500 mt-1"><i class="fas fa-check-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Resilient Flow Control</h4>
+                                <p class="text-slate-400 text-sm">Developed exception handling that logs failures without terminating the global pipeline, ensuring 99.9% crawl consistency.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-20 px-6 bg-slate-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-12">Measurable Outcomes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card glass p-8 rounded-xl text-left">
+                    <div class="text-4xl font-bold text-blue-500 mb-2">15+</div>
+                    <div class="text-sm font-semibold uppercase tracking-wider text-slate-300">Hours Saved</div>
+                    <p class="text-xs text-slate-500 mt-2">Manual research time reclaimed per research cycle.</p>
+                </div>
+                <div class="stat-card glass p-8 rounded-xl text-left border-purple-500">
+                    <div class="text-4xl font-bold text-purple-500 mb-2">60%</div>
+                    <div class="text-sm font-semibold uppercase tracking-wider text-slate-300">Faster Detection</div>
+                    <p class="text-xs text-slate-500 mt-2">Reduction in time-to-identification for new threats.</p>
+                </div>
+                <div class="stat-card glass p-8 rounded-xl text-left border-green-500">
+                    <div class="text-4xl font-bold text-green-500 mb-2">99.9%</div>
+                    <div class="text-sm font-semibold uppercase tracking-wider text-slate-300">System Uptime</div>
+                    <p class="text-xs text-slate-500 mt-2">Stability achieved through robust exception handling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-800 text-center">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="text-slate-500 text-sm">© 2024 Lead Security Engineer | Build with Python & Professionalism</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

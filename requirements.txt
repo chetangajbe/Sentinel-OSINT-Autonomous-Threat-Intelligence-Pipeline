@@ -1,0 +1,9 @@
+selenium: Controls the web browser to scrape dynamic websites.
+
+beautifulsoup4: Parses the HTML code to find the data you need.
+
+pandas: Handles the data and exports it to a clean Excel/CSV format.
+
+openai: Connects your project to GPT-4 for AI intelligence.
+
+python-dotenv: Securely manages your API keys so they aren't leaked.
